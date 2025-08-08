@@ -91,9 +91,6 @@ const Homepage = () => {
     { rank: 3, name: "USD Coin", symbol: "USDC", price: "$1.00", change: "+0.01%", volume: "$179M", up: true },
     { rank: 4, name: "BNB", symbol: "BNB", price: "$372.38", change: "-0.30%", volume: "$248.0M", up: false },
     { rank: 5, name: "MERL", symbol: "MERL", price: "$0.022", change: "+0.32%", volume: "$25.1M", up: true },
-    { rank: 6, name: "USD Coin", symbol: "USDC", price: "$1.00", change: "+0.00%", volume: "$401M", up: true },
-    { rank: 7, name: "Tether", symbol: "USDT", price: "$1.00", change: "+0.00%", volume: "$401M", up: true },
-    { rank: 8, name: "Ethereum", symbol: "ETH", price: "$3,265.74", change: "+1.07%", volume: "$62.0M", up: true },
   ];
 
   return (
