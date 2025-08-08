@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Search, ChevronRight, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import DarkVeil from "@/components/DarkVeil";
 
 const FeatureRow = ({
   number,
@@ -174,13 +175,25 @@ const Homepage = () => {
       <main>
         {/* Hero */}
         <section className="relative container mx-auto px-4 pt-14 pb-10 md:pt-24 md:pb-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4">Explore the Market</h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-10">
+          {/* Background Animation */}
+          <div className="absolute inset-0 -z-10 opacity-30">
+            <DarkVeil 
+              hueShift={180}
+              noiseIntensity={0.1}
+              scanlineIntensity={0.05}
+              speed={0.3}
+              scanlineFrequency={0.1}
+              warpAmount={0.1}
+            />
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-4 relative z-10">Explore the Market</h1>
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 relative z-10">
             Dive into trending tokens, hidden gems, and what's moving the chain right now.
           </p>
           <Button
             onClick={() => navigate("/terminal")}
-            className="rounded-lg px-6 md:px-8 h-11 bg-primary text-primary-foreground shadow-lg hover:opacity-95"
+            className="rounded-lg px-6 md:px-8 h-11 bg-primary text-primary-foreground shadow-lg hover:opacity-95 relative z-10"
           >
             Connect Wallet
           </Button>
