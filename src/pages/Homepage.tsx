@@ -176,14 +176,15 @@ const Homepage = () => {
         {/* Hero */}
         <section className="relative container mx-auto px-4 pt-14 pb-10 md:pt-24 md:pb-16 text-center min-h-[600px] flex flex-col justify-center">
           {/* Background Animation */}
-          <div className="absolute inset-0 -z-10 opacity-60 overflow-hidden">
+          <div className="absolute inset-0 -z-10 opacity-80 overflow-hidden bg-gradient-to-br from-purple-900/50 via-blue-900/30 to-black/80">
             <DarkVeil 
-              hueShift={240}
-              noiseIntensity={0.05}
-              scanlineIntensity={0.02}
-              speed={0.5}
-              scanlineFrequency={0.05}
-              warpAmount={0.15}
+              hueShift={270}
+              noiseIntensity={0.03}
+              scanlineIntensity={0.01}
+              speed={0.7}
+              scanlineFrequency={0.02}
+              warpAmount={0.25}
+              resolutionScale={0.8}
             />
           </div>
           

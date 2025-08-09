@@ -86,18 +86,18 @@ export default function DarkVeil({
   const ref = useRef(null);
   useEffect(() => {
     const canvas = ref.current;
-    if (!canvas) return;
-    
-    const parent = canvas.parentElement;
-    if (!parent) return;
-
-    // Check for WebGL support
-    const tempCanvas = document.createElement('canvas');
-    const gl = tempCanvas.getContext('webgl') || tempCanvas.getContext('experimental-webgl');
-    if (!gl) {
-      console.warn('WebGL not supported, DarkVeil animation will not render');
+    if (!canvas) {
+      console.log('DarkVeil: Canvas ref is null');
       return;
     }
+    
+    const parent = canvas.parentElement;
+    if (!parent) {
+      console.log('DarkVeil: Parent element is null');
+      return;
+    }
+
+    console.log('DarkVeil: Initializing with parent dimensions:', parent.clientWidth, 'x', parent.clientHeight);
 
     try {
       const renderer = new Renderer({
