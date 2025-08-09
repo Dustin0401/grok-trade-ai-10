@@ -194,7 +194,7 @@ const Homepage = () => {
           </p>
           <Button
             onClick={() => navigate("/terminal")}
-            className="rounded-lg px-6 md:px-8 h-11 bg-primary text-primary-foreground shadow-lg hover:opacity-95 relative z-10"
+            className="rounded-lg px-4 h-11 bg-primary text-primary-foreground shadow-lg hover:opacity-95 relative z-10"
           >
             Connect Wallet
           </Button>
