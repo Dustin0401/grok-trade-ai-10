@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Grok Terminal Professional Trading Platform Design System */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Grok Terminal Professional Web3 Trading Platform Design System */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
@@ -17,13 +17,21 @@
     --popover: 0 0% 3%;
     --popover-foreground: 0 0% 95%;
 
-    /* Fluorescent Purple Colors */
-    --primary: 280 100% 70%;  /* Fluorescent Purple */
-    --primary-foreground: 0 0% 0%;
-    --primary-glow: 285 100% 85%;
+    /* Premium Violet & Deep Pink Palette */
+    --primary: 280 85% 65%;  /* Rich Violet */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 285 90% 75%;
+    --primary-dark: 280 90% 45%;
     
-    --grok-gold: 280 100% 70%;
-    --grok-gold-foreground: 0 0% 0%;
+    --secondary: 320 85% 65%;  /* Deep Pink */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 325 90% 75%;
+    
+    --accent: 300 100% 70%;  /* Bright Magenta */
+    --accent-foreground: 0 0% 100%;
+    
+    --grok-gold: 280 85% 65%;
+    --grok-gold-foreground: 0 0% 100%;
     
     /* Enhanced Trading Colors - Purple Theme */
     --bull-green: 120 100% 50%;
@@ -31,15 +39,12 @@
     --bear-red: 0 100% 60%;
     --bear-red-soft: 0 80% 70%;
     
-    /* DexScreener-style UI Colors */
-    --secondary: 0 0% 5%;
-    --secondary-foreground: 0 0% 90%;
-
+    /* Modern UI Colors */
     --muted: 0 0% 4%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 285 100% 85%;  /* Fluorescent Pink */
-    --accent-foreground: 0 0% 0%;
+    --surface: 0 0% 2%;
+    --surface-foreground: 0 0% 95%;
 
     --destructive: 0 100% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -57,17 +62,20 @@
     --warning: 38 100% 50%;
     --info: 210 100% 50%;
     
-    /* Fluorescent Purple Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%) 0%, hsl(285 100% 85%) 100%);
-    --gradient-chart: linear-gradient(180deg, hsl(var(--accent) / 0.15), transparent);
+    /* Premium Gradient System */
+    --gradient-primary: linear-gradient(135deg, hsl(280 85% 65%) 0%, hsl(320 85% 65%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(280 85% 65%) 0%, hsl(320 85% 65%) 50%, hsl(300 100% 70%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(0 0% 6%));
-    --gradient-glass: linear-gradient(135deg, rgba(180, 80, 255, 0.1) 0%, rgba(255, 100, 255, 0.05) 100%);
-    --gradient-purple-glow: radial-gradient(circle at 50% 50%, hsl(280 100% 70% / 0.3) 0%, transparent 70%);
+    --gradient-glass: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(219, 39, 119, 0.05) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(280 85% 65% / 0.3) 0%, transparent 70%);
+    --gradient-animated: linear-gradient(-45deg, hsl(280 85% 65%), hsl(320 85% 65%), hsl(300 100% 70%), hsl(280 85% 65%));
     
-    /* Shadows & Glows */
-    --shadow-terminal: 0 8px 32px rgba(180, 80, 255, 0.25);
-    --shadow-glass: 0 8px 32px rgba(180, 80, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    --glow-primary: 0 0 30px hsl(280 100% 70% / 0.4);
+    /* Premium Shadows & Glows */
+    --shadow-primary: 0 20px 60px rgba(147, 51, 234, 0.3);
+    --shadow-glass: 0 8px 32px rgba(147, 51, 234, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-hero: 0 40px 100px rgba(147, 51, 234, 0.4);
+    --glow-primary: 0 0 40px hsl(280 85% 65% / 0.5);
+    --glow-secondary: 0 0 40px hsl(320 85% 65% / 0.5);
     --glow-success: 0 0 16px hsl(var(--bull-green) / 0.3);
     --glow-error: 0 0 16px hsl(var(--bear-red) / 0.3);
     
@@ -138,12 +146,29 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  /* Terminal-specific typography */
+  /* Professional typography system */
   .font-mono {
     font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+  }
+  
+  .font-display {
+    font-family: 'Orbitron', 'Space Grotesk', sans-serif;
+  }
+  
+  .text-gradient {
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 6s ease-in-out infinite;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px hsl(280 85% 65% / 0.5);
   }
 
   /* Custom scrollbars for terminal feel */
