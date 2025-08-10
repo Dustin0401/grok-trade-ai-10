@@ -110,6 +110,9 @@ const Homepage = () => {
     { rank: 3, name: "USD Coin", symbol: "USDC", price: "$1.00", change: "+0.01%", volume: "$179M", up: true },
     { rank: 4, name: "BNB", symbol: "BNB", price: "$372.38", change: "-0.30%", volume: "$248.0M", up: false },
     { rank: 5, name: "Solana", symbol: "SOL", price: "$98.45", change: "+2.15%", volume: "$125M", up: true },
+    { rank: 6, name: "Polygon", symbol: "MATIC", price: "$0.8734", change: "+3.42%", volume: "$89.2M", up: true },
+    { rank: 7, name: "Chainlink", symbol: "LINK", price: "$14.87", change: "-1.25%", volume: "$156M", up: false },
+    { rank: 8, name: "Uniswap", symbol: "UNI", price: "$7.23", change: "+4.18%", volume: "$78.5M", up: true },
   ];
 
   const features = [
@@ -200,17 +203,11 @@ const Homepage = () => {
             </nav>
           </div>
 
-          <div className="hidden md:flex items-center w-96">
-            <div className="relative w-full">
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search tokens, pools, wallets..."
-                className="w-full h-12 rounded-full bg-surface/60 backdrop-blur-xl border border-primary/20 pl-5 pr-12 text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
-              />
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            </div>
-          </div>
+          <nav className="hidden lg:flex items-center gap-8 text-sm">
+            <a className="text-muted-foreground hover:text-primary transition-colors font-medium" href="#">DeFi Pools</a>
+            <a className="text-muted-foreground hover:text-primary transition-colors font-medium" href="#">NFT Trading</a>
+            <a className="text-muted-foreground hover:text-primary transition-colors font-medium" href="#">Yield Farming</a>
+          </nav>
 
           <div className="flex items-center gap-4">
             <Button
@@ -372,6 +369,184 @@ const Homepage = () => {
                   description={feature.description}
                   delay={index * 100}
                 />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Security & Trust Section */}
+        <section className="py-24 bg-surface/10 backdrop-blur-xl">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-primary/10 border-primary/30 text-primary px-6 py-2 text-sm font-medium">
+                SECURITY FIRST
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-gradient">
+                Institutional-Grade Security
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Your assets are protected by the highest security standards in the industry.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              <Card className="p-8 bg-surface/40 backdrop-blur-xl border-primary/20 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-secondary p-4">
+                  <Shield className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-gradient">Multi-Sig Wallets</h3>
+                <p className="text-muted-foreground">Advanced multi-signature technology ensures your funds are always secure.</p>
+              </Card>
+
+              <Card className="p-8 bg-surface/40 backdrop-blur-xl border-primary/20 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-secondary p-4">
+                  <Lock className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-gradient">End-to-End Encryption</h3>
+                <p className="text-muted-foreground">Military-grade encryption protects all your transactions and data.</p>
+              </Card>
+
+              <Card className="p-8 bg-surface/40 backdrop-blur-xl border-primary/20 text-center">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary to-secondary p-4">
+                  <Check className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-gradient">Smart Contract Audited</h3>
+                <p className="text-muted-foreground">All smart contracts are audited by leading security firms.</p>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-bull-green" />
+                  <span>SOC 2 Compliant</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-bull-green" />
+                  <span>ISO 27001 Certified</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-bull-green" />
+                  <span>CCSS Level 3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Rewards Section */}
+        <section className="py-24">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-secondary/10 border-secondary/30 text-secondary px-6 py-2 text-sm font-medium">
+                REWARDS PROGRAM
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
+                Earn While You Trade
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Get rewarded for every trade, referral, and milestone you achieve on our platform.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
+                  <Star className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gradient">Trading Rewards</h3>
+                <p className="text-2xl font-bold text-primary mb-2">0.02%</p>
+                <p className="text-sm text-muted-foreground">cashback on every trade</p>
+              </Card>
+
+              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
+                  <Users className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gradient">Referral Bonus</h3>
+                <p className="text-2xl font-bold text-primary mb-2">25%</p>
+                <p className="text-sm text-muted-foreground">of friend's trading fees</p>
+              </Card>
+
+              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
+                  <TrendingUp className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gradient">Volume Bonus</h3>
+                <p className="text-2xl font-bold text-primary mb-2">Up to 50%</p>
+                <p className="text-sm text-muted-foreground">fee discount</p>
+              </Card>
+
+              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
+                  <Sparkles className="w-full h-full text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gradient">Loyalty Rewards</h3>
+                <p className="text-2xl font-bold text-primary mb-2">NFTs</p>
+                <p className="text-sm text-muted-foreground">exclusive collectibles</p>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Button
+                className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-primary hover:shadow-primary/60 transition-all duration-300"
+              >
+                <Star className="w-5 h-5 mr-3" />
+                View Rewards Program
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-24 bg-surface/10 backdrop-blur-xl">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-primary/10 border-primary/30 text-primary px-6 py-2 text-sm font-medium">
+                FAQ
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-gradient">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Everything you need to know about trading on Grok Terminal.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+              {[
+                {
+                  question: "Is Grok Terminal safe to use?",
+                  answer: "Yes, Grok Terminal employs bank-grade security measures including multi-signature wallets, end-to-end encryption, and smart contract audits by leading security firms."
+                },
+                {
+                  question: "What trading fees do you charge?",
+                  answer: "We charge competitive trading fees starting from 0.1% per trade, with volume-based discounts up to 50% for high-volume traders."
+                },
+                {
+                  question: "Which blockchains do you support?",
+                  answer: "We support 15+ major blockchains including Ethereum, Binance Smart Chain, Polygon, Solana, Avalanche, and many more."
+                },
+                {
+                  question: "Do I need to create an account?",
+                  answer: "No account creation required! Simply connect your Web3 wallet and start trading immediately. We're completely non-custodial."
+                },
+                {
+                  question: "How do I earn rewards?",
+                  answer: "You earn rewards through trading (0.02% cashback), referrals (25% of fees), volume bonuses (up to 50% discount), and loyalty NFTs."
+                }
+              ].map((faq, index) => (
+                <Card key={index} className="bg-surface/40 backdrop-blur-xl border-primary/20 overflow-hidden group">
+                  <details className="cursor-pointer">
+                    <summary className="p-6 flex items-center justify-between hover:bg-primary/5 transition-colors">
+                      <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground group-open:rotate-90 transition-transform" />
+                    </summary>
+                    <div className="px-6 pb-6">
+                      <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </details>
+                </Card>
               ))}
             </div>
           </div>
