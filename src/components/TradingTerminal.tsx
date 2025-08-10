@@ -528,20 +528,15 @@ const TradingTerminal = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button 
-                      onClick={() => setOrderSide('buy')}
-                      className={`${orderSide === 'buy' ? 'bg-bull-green hover:bg-bull-green/90 text-black' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
-                    >
-                      Buy {currentPair.baseAsset}
-                    </Button>
-                    <Button 
-                      onClick={() => setOrderSide('sell')}
-                      className={`${orderSide === 'sell' ? 'bg-bear-red hover:bg-bear-red/90 text-white' : 'bg-muted text-muted-foreground hover:bg-muted/80'}`}
-                    >
-                      Sell {currentPair.baseAsset}
-                    </Button>
-                  </div>
+                  <Button 
+                    className={`w-full py-3 font-semibold ${
+                      orderSide === 'buy' 
+                        ? 'bg-bull-green hover:bg-bull-green/90 text-black' 
+                        : 'bg-bear-red hover:bg-bear-red/90 text-white'
+                    }`}
+                  >
+                    {orderSide === 'buy' ? 'Buy' : 'Sell'} {currentPair.baseAsset}
+                  </Button>
                 </div>
               </div>
             </div>
