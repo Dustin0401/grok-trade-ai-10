@@ -3,29 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
-  Search, 
-  Star, 
-  TrendingUp, 
-  TrendingDown, 
-  Volume2,
-  Settings,
-  Maximize2,
-  MoreHorizontal,
-  BarChart3,
-  LineChart,
-  CandlestickChart,
-  Activity,
-  Layers,
-  Target,
-  Zap,
-  Eye,
-  Grid3X3
+  Search, Star, Settings, CandlestickChart, LineChart, BarChart3, Activity,
+  Layers, Target, Zap, Volume2, Eye, Grid3X3, Maximize2, MoreHorizontal
 } from "lucide-react";
+import AdvancedChart from "./trading/AdvancedChart";
+import OrderBook from "./trading/OrderBook";
+import TradingInterface from "./trading/TradingInterface";
 
 interface CryptoPair {
   symbol: string;
@@ -296,103 +283,13 @@ const TradingTerminal = () => {
         <ResizablePanel defaultSize={65} minSize={45}>
           <ResizablePanelGroup direction="vertical" className="h-full">
             {/* Chart Area */}
-            <ResizablePanel defaultSize={50} minSize={40}>
-              <div className="h-full p-4">
-                <div className="h-full">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm" className="bg-primary/10 border-primary/30">
-                        <CandlestickChart className="w-4 h-4 mr-1" />
-                        Market chart
-                      </Button>
-                      <Separator orientation="vertical" className="h-6" />
-                      <div className="flex items-center gap-1">
-                        <Button variant="ghost" size="sm" className="text-xs">1s</Button>
-                        <Button variant="ghost" size="sm" className="text-xs">5m</Button>
-                        <Button variant="ghost" size="sm" className="text-xs bg-primary/20 text-primary">15m</Button>
-                        <Button variant="ghost" size="sm" className="text-xs">1h</Button>
-                        <Button variant="ghost" size="sm" className="text-xs">4h</Button>
-                        <Button variant="ghost" size="sm" className="text-xs">1d</Button>
-                      </div>
-                      <Separator orientation="vertical" className="h-6" />
-                      <div className="flex items-center gap-1">
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <LineChart className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs bg-primary/10">
-                          <BarChart3 className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Activity className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Layers className="w-3 h-3 mr-1" />
-                          Indicators
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Target className="w-3 h-3 mr-1" />
-                          Drawing
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Zap className="w-3 h-3 mr-1" />
-                          Alerts
-                        </Button>
-                      </div>
-                      <Separator orientation="vertical" className="h-6" />
-                      <div className="flex items-center gap-1">
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Volume2 className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Eye className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Grid3X3 className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Maximize2 className="w-3 h-3" />
-                        </Button>
-                        <Button variant="outline" size="sm" className="text-xs">
-                          <Settings className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div ref={chartRef} className="h-[calc(100%-4rem)] relative">
-                    {/* Advanced chart controls overlay */}
-                    <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
-                      <div className="bg-card/90 backdrop-blur-sm border border-border/50 rounded-lg p-2">
-                        <div className="text-xs text-muted-foreground mb-1">Technical Analysis</div>
-                        <div className="flex items-center gap-1 text-xs">
-                          <div className="w-2 h-2 rounded-full bg-bull-green"></div>
-                          <span>MA(20): 89,456</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-xs">
-                          <div className="w-2 h-2 rounded-full bg-primary"></div>
-                          <span>MA(50): 88,923</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-xs">
-                          <div className="w-2 h-2 rounded-full bg-bear-red"></div>
-                          <span>RSI: 67.8</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Price scale on right */}
-                    <div className="absolute right-0 top-0 bottom-16 w-16 bg-card/90 backdrop-blur-sm border-l border-border/50 flex flex-col justify-between text-xs p-2">
-                      {Array.from({length: 8}, (_, i) => (
-                        <div key={i} className="text-right text-muted-foreground font-mono">
-                          {(currentPair.price + (4-i) * 500).toFixed(0)}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <ResizablePanel defaultSize={60} minSize={40}>
+              <AdvancedChart 
+                symbol={currentPair.symbol}
+                price={currentPair.price}
+                change24h={currentPair.change24h}
+                className="h-full"
+              />
             </ResizablePanel>
 
             <ResizableHandle withHandle />
