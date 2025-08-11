@@ -434,66 +434,155 @@ const Homepage = () => {
           </div>
         </section>
 
-        {/* Rewards Section */}
-        <section className="py-24">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-secondary/10 border-secondary/30 text-secondary px-6 py-2 text-sm font-medium">
-                REWARDS PROGRAM
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-                Earn While You Trade
+        {/* Enhanced Rewards Section */}
+        <section className="py-24 relative overflow-hidden">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-20 left-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl animate-float" />
+            <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
+            <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full blur-xl animate-glow" style={{ animationDelay: '1s' }} />
+          </div>
+
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center justify-center mb-8">
+                <Badge className="bg-gradient-to-r from-primary/20 to-secondary/20 border-primary/30 text-primary px-8 py-3 text-sm font-medium backdrop-blur-xl animate-pulse">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  REWARDS PROGRAM
+                </Badge>
+              </div>
+              
+              <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-tight">
+                <span className="text-gradient bg-gradient-animated bg-[length:400%_400%] animate-slide-up">
+                  Earn While You Trade
+                </span>
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Get rewarded for every trade, referral, and milestone you achieve on our platform.
+              
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '200ms' }}>
+                Get rewarded for every trade, referral, and milestone. Our revolutionary rewards system maximizes your earning potential.
               </p>
+
+              {/* Animated Stats Bar */}
+              <div className="mt-12 flex items-center justify-center gap-8 animate-slide-up" style={{ animationDelay: '400ms' }}>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gradient mb-1">
+                    <AnimatedCounter value={2500000} />+
+                  </div>
+                  <div className="text-sm text-muted-foreground">Total Rewards Paid</div>
+                </div>
+                <div className="w-px h-12 bg-primary/20" />
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gradient mb-1">
+                    <AnimatedCounter value={47} />K+
+                  </div>
+                  <div className="text-sm text-muted-foreground">Active Earners</div>
+                </div>
+                <div className="w-px h-12 bg-primary/20" />
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gradient mb-1">
+                    <AnimatedCounter value={156} />%
+                  </div>
+                  <div className="text-sm text-muted-foreground">Avg. APY</div>
+                </div>
+              </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
-                  <Star className="w-full h-full text-white" />
+            {/* Enhanced Reward Cards */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {/* Trading Rewards Card */}
+              <Card className="group relative overflow-hidden bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-2xl border-primary/30 hover:border-primary/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '200ms' }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 p-8 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-secondary p-4 group-hover:scale-110 transition-transform duration-300 shadow-primary">
+                    <Star className="w-full h-full text-white animate-pulse" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform duration-300">Trading Rewards</h3>
+                  <div className="text-4xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">0.02%</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Instant cashback on every trade executed</p>
+                  
+                  <div className="mt-6 w-full bg-surface/50 rounded-full h-2 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary to-secondary rounded-full w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gradient">Trading Rewards</h3>
-                <p className="text-2xl font-bold text-primary mb-2">0.02%</p>
-                <p className="text-sm text-muted-foreground">cashback on every trade</p>
               </Card>
 
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
-                  <Users className="w-full h-full text-white" />
+              {/* Referral Bonus Card */}
+              <Card className="group relative overflow-hidden bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-2xl border-primary/30 hover:border-primary/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '400ms' }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 p-8 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-secondary to-primary p-4 group-hover:scale-110 transition-transform duration-300 shadow-secondary">
+                    <Users className="w-full h-full text-white animate-pulse" style={{ animationDelay: '500ms' }} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform duration-300">Referral Bonus</h3>
+                  <div className="text-4xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform duration-300">25%</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Lifetime earnings from referred friends</p>
+                  
+                  <div className="mt-6 w-full bg-surface/50 rounded-full h-2 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-secondary to-primary rounded-full w-0 group-hover:w-3/4 transition-all duration-1000 ease-out" style={{ transitionDelay: '200ms' }} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gradient">Referral Bonus</h3>
-                <p className="text-2xl font-bold text-primary mb-2">25%</p>
-                <p className="text-sm text-muted-foreground">of friend's trading fees</p>
               </Card>
 
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
-                  <TrendingUp className="w-full h-full text-white" />
+              {/* Volume Bonus Card */}
+              <Card className="group relative overflow-hidden bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-2xl border-primary/30 hover:border-primary/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '600ms' }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 p-8 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary via-secondary to-primary p-4 group-hover:scale-110 transition-transform duration-300 shadow-primary">
+                    <TrendingUp className="w-full h-full text-white animate-pulse" style={{ animationDelay: '1000ms' }} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform duration-300">Volume Bonus</h3>
+                  <div className="text-4xl font-bold text-gradient mb-2 group-hover:scale-110 transition-transform duration-300">50%</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Maximum fee discount for high volume</p>
+                  
+                  <div className="mt-6 w-full bg-surface/50 rounded-full h-2 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary via-secondary to-primary rounded-full w-0 group-hover:w-full transition-all duration-1000 ease-out" style={{ transitionDelay: '400ms' }} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gradient">Volume Bonus</h3>
-                <p className="text-2xl font-bold text-primary mb-2">Up to 50%</p>
-                <p className="text-sm text-muted-foreground">fee discount</p>
               </Card>
 
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-primary/20 text-center group hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary to-secondary p-3">
-                  <Sparkles className="w-full h-full text-white" />
+              {/* Loyalty NFTs Card */}
+              <Card className="group relative overflow-hidden bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-2xl border-primary/30 hover:border-primary/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '800ms' }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 p-8 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-secondary to-primary p-4 group-hover:scale-110 transition-transform duration-300 shadow-secondary">
+                    <Sparkles className="w-full h-full text-white animate-pulse" style={{ animationDelay: '1500ms' }} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-gradient group-hover:scale-105 transition-transform duration-300">Loyalty NFTs</h3>
+                  <div className="text-4xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform duration-300">RARE</div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">Exclusive collectibles & utility perks</p>
+                  
+                  <div className="mt-6 w-full bg-surface/50 rounded-full h-2 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-secondary to-primary rounded-full w-0 group-hover:w-5/6 transition-all duration-1000 ease-out" style={{ transitionDelay: '600ms' }} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gradient">Loyalty Rewards</h3>
-                <p className="text-2xl font-bold text-primary mb-2">NFTs</p>
-                <p className="text-sm text-muted-foreground">exclusive collectibles</p>
               </Card>
             </div>
 
+            {/* Enhanced CTA Section */}
             <div className="text-center">
-              <Button
-                className="bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-primary hover:shadow-primary/60 transition-all duration-300"
-              >
-                <Star className="w-5 h-5 mr-3" />
-                View Rewards Program
-              </Button>
+              <div className="relative inline-block animate-slide-up" style={{ animationDelay: '1000ms' }}>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-2xl opacity-30 animate-glow" />
+                <Button className="relative bg-gradient-to-r from-primary to-secondary text-white px-12 py-6 rounded-full text-xl font-bold shadow-hero hover:shadow-primary/80 transition-all duration-300 group overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative z-10 flex items-center">
+                    <Star className="w-6 h-6 mr-4 animate-pulse" />
+                    Claim Your Rewards
+                    <ArrowUpRight className="w-6 h-6 ml-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                  </div>
+                </Button>
+              </div>
+              
+              <p className="mt-6 text-sm text-muted-foreground animate-slide-up" style={{ animationDelay: '1200ms' }}>
+                Start earning immediately • No minimum requirements • Rewards paid in real-time
+              </p>
             </div>
           </div>
         </section>
