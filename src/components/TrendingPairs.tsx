@@ -1,161 +1,47 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TrendingUp, TrendingDown, Search, Star, ExternalLink, Flame, Zap, Filter, ArrowUpDown, Heart, Sparkles } from "lucide-react";
-import { useRealTimePrice } from "@/hooks/useRealTimePrice";
+import { TrendingUp, TrendingDown, Search, Star, ExternalLink, Flame, Zap } from "lucide-react";
 
 const TrendingPairs = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("changePercent");
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [filterBy, setFilterBy] = useState("all");
-  const [watchlist, setWatchlist] = useState<string[]>(['GROK/USDT']);
 
-  const { prices } = useRealTimePrice({
-    symbols: ['GROK/USDT', 'BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'ADA/USDT', 'DOT/USDT']
-  });
-
-  const baseTrendingPairs = [
-    { rank: 1, pair: "GROK/USDT", basePrice: 0.0245, volume: "12.4M", liquidity: "8.9M", fdv: "245M", holders: "45.2K", category: "meme" },
-    { rank: 2, pair: "PEPE/USDT", basePrice: 0.00001234, volume: "89.2M", liquidity: "45.7M", fdv: "5.2B", holders: "189K", category: "meme" },
-    { rank: 3, pair: "SHIB/USDT", basePrice: 0.000008945, volume: "156.8M", liquidity: "78.9M", fdv: "5.3B", holders: "1.2M", category: "meme" },
-    { rank: 4, pair: "DOGE/USDT", basePrice: 0.08934, volume: "234.5M", liquidity: "123.4M", fdv: "12.8B", holders: "4.5M", category: "meme" },
-    { rank: 5, pair: "FLOKI/USDT", basePrice: 0.00015678, volume: "67.8M", liquidity: "34.2M", fdv: "1.5B", holders: "278K", category: "meme" },
-    { rank: 6, pair: "BONK/USDT", basePrice: 0.00001892, volume: "45.6M", liquidity: "23.1M", fdv: "1.2B", holders: "156K", category: "meme" },
-    { rank: 7, pair: "WIF/USDT", basePrice: 1.234, volume: "78.9M", liquidity: "56.7M", fdv: "1.2B", holders: "89.3K", category: "meme" },
-    { rank: 8, pair: "BTC/USDT", basePrice: 45000, volume: "2.1B", liquidity: "890M", fdv: "890B", holders: "120M", category: "blue-chip" },
-    { rank: 9, pair: "ETH/USDT", basePrice: 2800, volume: "1.8B", liquidity: "567M", fdv: "340B", holders: "89M", category: "blue-chip" },
-    { rank: 10, pair: "SOL/USDT", basePrice: 89.45, volume: "456M", liquidity: "234M", fdv: "45B", holders: "12M", category: "layer1" },
+  const trendingPairs = [
+    { rank: 1, pair: "GROK/USDT", price: 0.0245, change: 45.67, changePercent: 186.3, volume: "12.4M", liquidity: "8.9M", fdv: "245M", holders: "45.2K" },
+    { rank: 2, pair: "PEPE/USDT", price: 0.00001234, change: 0.00000234, changePercent: 23.4, volume: "89.2M", liquidity: "45.7M", fdv: "5.2B", holders: "189K" },
+    { rank: 3, pair: "SHIB/USDT", price: 0.000008945, change: -0.000000567, changePercent: -5.9, volume: "156.8M", liquidity: "78.9M", fdv: "5.3B", holders: "1.2M" },
+    { rank: 4, pair: "DOGE/USDT", price: 0.08934, change: 0.00456, changePercent: 5.4, volume: "234.5M", liquidity: "123.4M", fdv: "12.8B", holders: "4.5M" },
+    { rank: 5, pair: "FLOKI/USDT", price: 0.00015678, change: 0.00003456, changePercent: 28.3, volume: "67.8M", liquidity: "34.2M", fdv: "1.5B", holders: "278K" },
+    { rank: 6, pair: "BONK/USDT", price: 0.00001892, change: -0.00000345, changePercent: -15.4, volume: "45.6M", liquidity: "23.1M", fdv: "1.2B", holders: "156K" },
+    { rank: 7, pair: "WIF/USDT", price: 1.234, change: 0.156, changePercent: 14.5, volume: "78.9M", liquidity: "56.7M", fdv: "1.2B", holders: "89.3K" },
+    { rank: 8, pair: "POPCAT/USDT", price: 0.5678, change: -0.0456, changePercent: -7.4, volume: "23.4M", liquidity: "12.8M", fdv: "567M", holders: "34.5K" },
   ];
 
-  // Enhance pairs data with real-time prices
-  const trendingPairs = baseTrendingPairs.map(pair => {
-    const livePrice = prices[pair.pair];
-    const currentPrice = livePrice?.price || pair.basePrice;
-    const change24h = livePrice?.change24h || (Math.random() - 0.5) * 20;
-    const changePercent = change24h;
-    
-    return {
-      ...pair,
-      price: currentPrice,
-      change: (currentPrice * changePercent) / 100,
-      changePercent,
-      isWatched: watchlist.includes(pair.pair),
-      isHot: Math.abs(changePercent) > 10,
-      isTrending: pair.rank <= 3
-    };
-  });
-
-  const toggleWatchlist = (pair: string) => {
-    setWatchlist(prev => 
-      prev.includes(pair) 
-        ? prev.filter(p => p !== pair)
-        : [...prev, pair]
-    );
-  };
-
-  // Filter and sort pairs
-  const filteredPairs = trendingPairs
-    .filter(pair => {
-      const matchesSearch = pair.pair.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesFilter = filterBy === "all" || 
-                           filterBy === "watchlist" && pair.isWatched ||
-                           filterBy === "hot" && pair.isHot ||
-                           filterBy === pair.category;
-      return matchesSearch && matchesFilter;
-    })
-    .sort((a, b) => {
-      let aVal: any = a[sortBy as keyof typeof a];
-      let bVal: any = b[sortBy as keyof typeof b];
-      
-      if (typeof aVal === 'string') {
-        aVal = parseFloat(aVal.replace(/[^\d.-]/g, '')) || 0;
-        bVal = parseFloat(bVal.replace(/[^\d.-]/g, '')) || 0;
-      }
-      
-      return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
-    });
+  const filteredPairs = trendingPairs.filter(pair => 
+    pair.pair.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
       {/* Header with search */}
       <Card className="gradient-card border border-grok/30">
         <CardHeader className="pb-4">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Flame className="w-6 h-6 text-grok animate-pulse" />
+              <Flame className="w-6 h-6 text-grok" />
               Trending Pairs
-              <Badge className="bg-grok/20 text-grok border-grok/30 animate-pulse">LIVE</Badge>
+              <Badge className="bg-grok/20 text-grok border-grok/30">Live</Badge>
             </CardTitle>
-          </div>
-          
-          {/* Advanced Controls */}
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Search pairs..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-80 bg-card/50 border-border/50 focus:border-grok/50"
-                />
-              </div>
-
-              {/* Filter */}
-              <Select value={filterBy} onValueChange={setFilterBy}>
-                <SelectTrigger className="w-40 bg-card/50 border-border/50">
-                  <Filter className="w-4 h-4 mr-2" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Pairs</SelectItem>
-                  <SelectItem value="watchlist">Watchlist</SelectItem>
-                  <SelectItem value="hot">🔥 Hot</SelectItem>
-                  <SelectItem value="meme">Meme Coins</SelectItem>
-                  <SelectItem value="blue-chip">Blue Chip</SelectItem>
-                  <SelectItem value="layer1">Layer 1</SelectItem>
-                </SelectContent>
-              </Select>
-
-              {/* Sort */}
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-44 bg-card/50 border-border/50">
-                  <ArrowUpDown className="w-4 h-4 mr-2" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="changePercent">% Change</SelectItem>
-                  <SelectItem value="volume">Volume</SelectItem>
-                  <SelectItem value="liquidity">Liquidity</SelectItem>
-                  <SelectItem value="holders">Holders</SelectItem>
-                  <SelectItem value="fdv">Market Cap</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
-                className="bg-card/50 border-border/50"
-              >
-                {sortOrder === 'desc' ? '↓' : '↑'}
-              </Button>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                {filteredPairs.length} pairs
-              </Badge>
-              <Badge variant="outline" className="text-xs bg-grok/10 text-grok border-grok/30">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Trending
-              </Badge>
+            <div className="relative w-80">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                placeholder="Search pairs..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-card/50 border-border/50 focus:border-grok/50"
+              />
             </div>
           </div>
         </CardHeader>
@@ -242,19 +128,9 @@ const TrendingPairs = () => {
                   >
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-2">
-                        <button 
-                          onClick={() => toggleWatchlist(pair.pair)}
-                          className="transition-colors"
-                        >
-                          {pair.isWatched ? (
-                            <Heart className="w-3 h-3 text-grok fill-grok" />
-                          ) : (
-                            <Heart className="w-3 h-3 text-muted-foreground hover:text-grok" />
-                          )}
-                        </button>
+                        <Star className="w-3 h-3 text-muted-foreground hover:text-grok cursor-pointer" />
                         <span className="text-sm font-mono">{pair.rank}</span>
-                        {pair.isTrending && <Flame className="w-3 h-3 text-grok animate-pulse" />}
-                        {pair.isHot && <Sparkles className="w-3 h-3 text-accent animate-pulse" />}
+                        {pair.rank <= 3 && <Flame className="w-3 h-3 text-grok" />}
                       </div>
                     </td>
                     <td className="py-4 px-4">
@@ -304,13 +180,10 @@ const TrendingPairs = () => {
                       <span className="text-sm font-mono">{pair.holders}</span>
                     </td>
                     <td className="py-4 px-4 text-center">
-                      <div className="flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button size="sm" variant="outline" className="h-7 px-2 text-xs bg-bull/20 hover:bg-bull/30 text-bull border-bull/30">
+                      <div className="flex items-center justify-center gap-1">
+                        <button className="p-1.5 bg-bull/20 hover:bg-bull/30 text-bull rounded transition-colors text-xs font-medium opacity-0 group-hover:opacity-100">
                           Buy
-                        </Button>
-                        <Button size="sm" variant="outline" className="h-7 px-2 text-xs bg-bear/20 hover:bg-bear/30 text-bear border-bear/30">
-                          Sell
-                        </Button>
+                        </button>
                         <button className="p-1 hover:bg-muted/50 rounded transition-colors">
                           <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-foreground" />
                         </button>
