@@ -1,8 +1,21 @@
-import { TrendingUp, TrendingDown, DollarSign, Activity, PieChart, Wallet, Zap } from "lucide-react";
+import { useState, useEffect } from "react";
+import { TrendingUp, TrendingDown, DollarSign, Activity, PieChart, Wallet, Zap, BarChart3, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import MarketTable from "./MarketTable";
+import { useRealTimePrice } from "@/hooks/useRealTimePrice";
 const PortfolioDashboard = () => {
+  const [animatedValues, setAnimatedValues] = useState({
+    totalValue: 0,
+    dayChange: 0,
+    grokBalance: 0
+  });
+
+  const symbols = ['AAPL', 'GOOGL', 'MSFT', 'TSLA'];
+  const { prices, isConnected } = useRealTimePrice({ symbols });
+
   const portfolioData = {
     totalValue: 24567.89,
     dayChange: 456.23,
@@ -32,61 +45,154 @@ const PortfolioDashboard = () => {
       value: 3245.60,
       change: 45.80,
       changePercent: 1.43
-    }]
+    }],
+    allocation: [
+      { symbol: "AAPL", percentage: 35.2, value: 8640.50 },
+      { symbol: "GOOGL", percentage: 28.1, value: 6903.45 },
+      { symbol: "MSFT", percentage: 20.5, value: 5034.20 },
+      { symbol: "TSLA", percentage: 16.2, value: 3979.74 }
+    ],
+    performance: {
+      dayReturn: 1.89,
+      weekReturn: 3.45,
+      monthReturn: 8.92,
+      ytdReturn: 12.34
+    }
   };
+
+  // Animate numbers on component mount
+  useEffect(() => {
+    const animateValue = (start: number, end: number, duration: number, setter: (value: number) => void) => {
+      const startTime = Date.now();
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = start + (end - start) * progress;
+        setter(current);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      animate();
+    };
+
+    animateValue(0, portfolioData.totalValue, 2000, (value) => 
+      setAnimatedValues(prev => ({ ...prev, totalValue: value }))
+    );
+    animateValue(0, portfolioData.dayChange, 2000, (value) => 
+      setAnimatedValues(prev => ({ ...prev, dayChange: value }))
+    );
+    animateValue(0, portfolioData.grokBalance, 2000, (value) => 
+      setAnimatedValues(prev => ({ ...prev, grokBalance: value }))
+    );
+  }, []);
+
   return <div className="space-y-6">
-      {/* Top Stats Bar */}
+      {/* Enhanced Stats Bar */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="gradient-card border border-bull/20">
+        <Card className="gradient-card border border-bull/20 hover:shadow-lg transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Portfolio</p>
-                <p className="text-xl font-bold font-mono text-bull">${portfolioData.totalValue.toLocaleString()}</p>
+                <p className="text-xl font-bold font-mono text-bull">
+                  ${animatedValues.totalValue.toLocaleString()}
+                </p>
+                <div className="flex items-center gap-1 mt-1">
+                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-bull animate-pulse' : 'bg-muted'}`} />
+                  <span className="text-xs text-muted-foreground">
+                    {isConnected ? 'Live' : 'Offline'}
+                  </span>
+                </div>
               </div>
               <Wallet className="w-5 h-5 text-bull" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="gradient-card border border-bear/20">
+        <Card className="gradient-card border border-bear/20 hover:shadow-lg transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">24H P&L</p>
-                <p className={`text-xl font-bold font-mono ${portfolioData.dayChange >= 0 ? 'text-bull' : 'text-bear'}`}>
-                  {portfolioData.dayChange >= 0 ? '+' : ''}${portfolioData.dayChange.toLocaleString()}
+                <p className={`text-xl font-bold font-mono ${animatedValues.dayChange >= 0 ? 'text-bull' : 'text-bear'}`}>
+                  {animatedValues.dayChange >= 0 ? '+' : ''}${animatedValues.dayChange.toLocaleString()}
+                </p>
+                <p className={`text-xs font-mono ${portfolioData.performance.dayReturn >= 0 ? 'text-bull' : 'text-bear'}`}>
+                  {portfolioData.performance.dayReturn >= 0 ? '+' : ''}{portfolioData.performance.dayReturn}%
                 </p>
               </div>
-              {portfolioData.dayChange >= 0 ? <TrendingUp className="w-5 h-5 text-bull" /> : <TrendingDown className="w-5 h-5 text-bear" />}
+              {animatedValues.dayChange >= 0 ? <TrendingUp className="w-5 h-5 text-bull" /> : <TrendingDown className="w-5 h-5 text-bear" />}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="gradient-card border border-grok/20">
+        <Card className="gradient-card border border-grok/20 hover:shadow-lg transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Grok Balance</p>
-                <p className="text-xl font-bold font-mono text-grok">{portfolioData.grokBalance.toLocaleString()}</p>
+                <p className="text-xl font-bold font-mono text-grok">
+                  {animatedValues.grokBalance.toLocaleString()}
+                </p>
+                <p className="text-xs text-muted-foreground">≈ ${(animatedValues.grokBalance * 0.245).toFixed(2)}</p>
               </div>
               <Zap className="w-5 h-5 text-grok" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="gradient-card border border-accent/20">
+        <Card className="gradient-card border border-accent/20 hover:shadow-lg transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wide">24H Volume</p>
-                <p className="text-xl font-bold font-mono text-accent">$2.4M</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide">Performance</p>
+                <p className="text-xl font-bold font-mono text-accent">
+                  +{portfolioData.performance.ytdReturn}%
+                </p>
+                <p className="text-xs text-muted-foreground">YTD Return</p>
               </div>
-              <Activity className="w-5 h-5 text-accent" />
+              <Target className="w-5 h-5 text-accent" />
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Portfolio Allocation */}
+      <Card className="gradient-card border border-border/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <PieChart className="w-5 h-5" />
+            Portfolio Allocation
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {portfolioData.allocation.map((asset, index) => (
+              <div key={asset.symbol} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-primary/20 rounded-full" 
+                         style={{ backgroundColor: `hsl(${index * 90}, 50%, 50%)` }} />
+                    <span className="font-semibold">{asset.symbol}</span>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-mono font-semibold">{asset.percentage}%</div>
+                    <div className="text-xs text-muted-foreground">${asset.value.toLocaleString()}</div>
+                  </div>
+                </div>
+                <Progress 
+                  value={asset.percentage} 
+                  className="h-2"
+                  style={{ 
+                    '--progress-background': `hsl(${index * 90}, 50%, 50%)` 
+                  } as any}
+                />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Market Table */}
       <MarketTable />
