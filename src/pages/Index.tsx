@@ -4,7 +4,9 @@ import PortfolioDashboard from "@/components/PortfolioDashboard";
 import TradingChart from "@/components/TradingChart";
 import TradingInterface from "@/components/TradingInterface";
 import TrendingPairs from "@/components/TrendingPairs";
-import { TrendingUp, BarChart3, DollarSign, Wallet } from "lucide-react";
+import StakingInterface from "@/components/StakingInterface";
+import RewardsCenter from "@/components/RewardsCenter";
+import { TrendingUp, BarChart3, DollarSign, Wallet, Lock, Gift } from "lucide-react";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("trending");
@@ -14,6 +16,8 @@ const Index = () => {
     { id: "charts", icon: BarChart3, label: "Charts" },
     { id: "trade", icon: DollarSign, label: "Trade" },
     { id: "portfolio", icon: Wallet, label: "Portfolio" },
+    { id: "staking", icon: Lock, label: "Staking" },
+    { id: "rewards", icon: Gift, label: "Rewards" },
   ];
 
   const renderContent = () => {
@@ -26,6 +30,10 @@ const Index = () => {
         return <TradingInterface />;
       case "portfolio":
         return <PortfolioDashboard />;
+      case "staking":
+        return <StakingInterface />;
+      case "rewards":
+        return <RewardsCenter />;
       default:
         return <TrendingPairs />;
     }
